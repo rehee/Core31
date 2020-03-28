@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core31.C
+namespace Core31
 {
   [Area("Admin")]
-  public class DefaultController: Controller
+  public class AdminHomeController : Controller
   {
     public IActionResult Index()
     {

@@ -22,7 +22,6 @@ namespace Core31
             {
               webBuilder.UseStaticWebAssets();
               webBuilder.UseStartup<Startup>();
-              
             });
   }
 }
