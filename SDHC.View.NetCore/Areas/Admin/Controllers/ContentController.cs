@@ -12,6 +12,7 @@ namespace View.Areas.Admin.Controllers
   [Area("Admin")]
   public class ContentController : Controller
   {
+    //[Admin(adminRole: "ContentIndex")]
     public IActionResult Index(long? id)
     {
       var content = ServiceContainer.ContentService.GetContent(id.HasValue && id.Value > 0 ? id : null);
@@ -44,12 +45,14 @@ namespace View.Areas.Admin.Controllers
       return View(content);
     }
     [HttpPost]
+    //[Admin(adminRole: "ContentCreate")]
     public ActionResult PreCreate(long? ContentId, string FullType)
     {
       var content = ServiceContainer.ContentService.GetPreCreate(ContentId, FullType);
       return View("Create", content);
     }
     [HttpPost]
+    //[Admin(adminRole: "ContentCreate")]
     public ActionResult Create(ContentPostModel model)
     {
       var content = model.ConvertToBaseModel() as BaseContent;
@@ -57,6 +60,7 @@ namespace View.Areas.Admin.Controllers
       return RedirectToAction("Index");
     }
     [HttpGet]
+    //[Admin(adminRole: "ContentEdit")]
     public ActionResult Edit(long? id)
     {
       if (!id.HasValue)
@@ -71,23 +75,27 @@ namespace View.Areas.Admin.Controllers
       return View(content.ConvertModelToPost());
     }
     [HttpPost]
+    //[Admin(adminRole: "ContentEdit")]
     public ActionResult Edit(ContentPostModel model)
     {
       ServiceContainer.ContentService.UpdateContent(model);
       return RedirectToAction("Index");
     }
+    //[Admin(adminRole: "ContentSort")]
     public ActionResult Sort(long? id)
     {
       var model = ServiceContainer.ContentService.GetContentListView(id);
       return View(model);
     }
     [HttpPost]
+    //[Admin(adminRole: "ContentSort")]
     public ActionResult Sort(IEnumerable<ContentSortPostModel> input)
     {
       ServiceContainer.ContentService.UpdateContentOrder(input);
       return RedirectToAction("Sort");
     }
     [HttpPost]
+    //[Admin(adminRole: "ContentDelete")]
     public ActionResult Delete(long? id)
     {
       if (!id.HasValue)
