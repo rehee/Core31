@@ -31,23 +31,7 @@ namespace Core31
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
-      var systemConfigKey = "SystemConfig";
-      services.Configure<SystemConfig>(Configuration.GetSection(systemConfigKey));
-      services.AddSession();
-      services.AddHttpContextAccessor();
-      Action<DbContextOptionsBuilder> dbAction = options =>
-      {
-        options.UseSqlServer(
-              Configuration.GetConnectionString("DefaultConnection"));
-      };
-      services.AddScoped<ISDHCLanguageServiceInit, SDHCLanguageServiceInit>();
-      services.AddDbContext<MyDBContext>(dbAction);
-      services.InitSDHC<MyDBContext, BaseContentModel, BaseSelectModel, FormFile>(Configuration, dbAction,
-               WebHostEnvironment.ContentRootPath, systemConfigKey);
-
-      services.AddControllersWithViews();
-      services.ConfigureOptions(typeof(V.EditorRCLConfigureOptions));
-
+      services.SUFunction<MyDBContext, BaseContentModel, BaseSelectModel>(Configuration, WebHostEnvironment);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,25 +41,7 @@ namespace Core31
       {
         app.UseDeveloperExceptionPage();
       }
-      var p = env.ContentRootPath;
-
-
-      app.UseStaticFiles();
-
-      app.UseHttpsRedirection();
-
-      app.UseAuthentication();
-      app.UseSession();
-      app.UseRouting();
-      app.UseEndpoints(endpoints =>
-      {
-        endpoints.MapControllerRoute(
-        name: "area",
-        pattern: "{area:exists}/{controller=Default}/{action=Index}/{id?}");
-        endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-      });
+      SUContainer.Configure(app, env);
     }
   }
 }
