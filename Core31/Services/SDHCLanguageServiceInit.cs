@@ -24,7 +24,7 @@ namespace SDHC.Common.EntityCore.Services
     {
       if (session == null)
       {
-        return config.Value.DefaultLanguage;
+        return config.DefaultLanguage;
       }
       return session.GetInt32(key);
     };
