@@ -39,8 +39,9 @@ namespace Core31
     {
       if (env.IsDevelopment())
       {
-        app.UseDeveloperExceptionPage();
+        
       }
+      app.UseDeveloperExceptionPage();
       SUContainer.Configure(app, env);
     }
   }
