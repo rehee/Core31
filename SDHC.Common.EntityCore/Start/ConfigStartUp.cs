@@ -43,16 +43,16 @@ namespace Microsoft.Extensions.DependencyInjection
       var builder = new DbContextOptionsBuilder<TRepo>();
       optionsAction(builder);
       var options = builder.Options;
-      var crudInit = new CrudInit(
+      var crudInit = new CrudSelectInit(
         () => Activator.CreateInstance(typeof(TRepo), options) as TRepo,
-        typeof(TBaseContent)
+        typeof(TBaseContent), typeof(TBaseSelect)
       );
       CrudContainer.Crud = new BaseCruds(crudInit);
       CrudContainer.CrudModel = new CrudModel(crudInit);
       CrudContainer.CrudContent = new CrudContent(crudInit);
       ServiceContainer.ModelService = new ModelService(crudInit);
       ServiceContainer.ContentService = new ContentService(crudInit);
-
+      ServiceContainer.SelectService = new SelectService(crudInit);
       //HostingEnvironment.MapPath("/"));
 
       ServiceContainer.SDHCFileService = new SDHCFileService(new SDHCFileConfig(
