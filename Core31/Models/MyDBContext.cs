@@ -16,9 +16,9 @@ namespace Core31.Models
 
     public DbSet<BaseContent> Contents { get; set; }
     public DbSet<BaseSelect> Selects { get; set; }
-
     public DbSet<BaseContentModel> BaseContentModels { get; set; }
     public DbSet<BaseSelectModel> BaseSelectModel { get; set; }
+
 
 
     public Task<int> SaveChangesAsync()

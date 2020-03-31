@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Core31.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using SDHC.Common.Services;
 
@@ -22,17 +23,26 @@ namespace Core31.Controllers
     }
     public IActionResult Index()
     {
-      var currentLang = lang.GetLang();
-      lang.SetLang(1);
       return View();
     }
-    public IActionResult Edit(IFormFile name1)
+    public IActionResult Files()
     {
-      var t = name1.GetType() == typeof(IFormFile);
-      var t0 = name1.GetType() == typeof(FormFile);
-      var t1 = name1.GetType();
-      var t2 = typeof(List<IFormFile>);
+      var provider = new FileExtensionContentTypeProvider();
+      string contentType;
+      var fileName = ServiceContainer.SDHCFileService.BasePath + @"\FileUpload\lj2.jpg";
+      var stream = new FileStream(fileName, FileMode.Open);
+      if (!provider.TryGetContentType(fileName, out contentType))
+      {
+        contentType = "application/octet-stream";
+      }
+      return File(stream, contentType);
+    }
+    public IActionResult Edit(TestFile input)
+    {
       return Content("");
     }
+  }
+  public class TestFile
+  {
   }
 }

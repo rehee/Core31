@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\lj2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="wwwroot\lj2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Core31.View\Core31.View.csproj" />
     <ProjectReference Include="..\SDHC.Common.EntityCore\SDHC.Common.EntityCore.csproj" />
   </ItemGroup>

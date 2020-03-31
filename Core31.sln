@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core31", "Core31\Core31.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core31.View", "Core31.View\Core31.View.csproj", "{9BEF7417-AF50-4558-A3D3-1D8338CD8DB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDHC.Common.EntityCore", "SDHC.Common.EntityCore\SDHC.Common.EntityCore.csproj", "{17B9E81E-184C-4A1A-AA9E-5CA40D2996F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDHC.Common.EntityCore", "SDHC.Common.EntityCore\SDHC.Common.EntityCore.csproj", "{17B9E81E-184C-4A1A-AA9E-5CA40D2996F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
