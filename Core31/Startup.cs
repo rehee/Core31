@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using SDHC.Common.Configs;
 using SDHC.Common.EntityCore.Services;
 using SDHC.Common.Services;
 
@@ -30,16 +31,20 @@ namespace Core31
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
+      var systemConfigKey = "SystemConfig";
+      services.Configure<SystemConfig>(Configuration.GetSection(systemConfigKey));
       services.AddSession();
       services.AddHttpContextAccessor();
+      Action<DbContextOptionsBuilder> dbAction = options =>
+      {
+        options.UseSqlServer(
+              Configuration.GetConnectionString("DefaultConnection"));
+      };
       services.AddScoped<ISDHCLanguageServiceInit, SDHCLanguageServiceInit>();
-      services.AddDbContext<MyDBContext>(options =>
-          options.UseSqlServer(
-              Configuration.GetConnectionString("DefaultConnection")));
-      services.InitSDHC<MyDBContext, BaseContentModel, BaseSelectModel, FormFile>(Configuration, options =>
-             options.UseSqlServer(
-                 Configuration.GetConnectionString("DefaultConnection")),
-               WebHostEnvironment.ContentRootPath);
+      services.AddDbContext<MyDBContext>(dbAction);
+      services.InitSDHC<MyDBContext, BaseContentModel, BaseSelectModel, FormFile>(Configuration, dbAction,
+               WebHostEnvironment.ContentRootPath, systemConfigKey);
+
       services.AddControllersWithViews();
       services.ConfigureOptions(typeof(V.EditorRCLConfigureOptions));
 
