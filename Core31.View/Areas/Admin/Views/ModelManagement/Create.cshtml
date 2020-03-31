@@ -1,0 +1,6 @@
+﻿@model SDHC.Common.Entity.Models.ModelPostModel
+@{
+  ViewBag.Title = TypeExtends.GetModelTitleFullType(Model.FullType, Model.ThisAssembly) + " Create";
+  Layout = "~/Areas/Admin/Views/Shared/_Layout_Content.cshtml";
+}
+@{ Html.RenderPartial("GeneralModelView", Model);}
