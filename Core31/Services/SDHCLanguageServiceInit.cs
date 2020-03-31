@@ -9,6 +9,7 @@ namespace SDHC.Common.EntityCore.Services
   public class SDHCLanguageServiceInit : ISDHCLanguageServiceInit
   {
     private IHttpContextAccessor acce { get; }
+
     private ISession session { get; }
     public SDHCLanguageServiceInit(IHttpContextAccessor acce)
     {
