@@ -13,31 +13,32 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core31.View\Core31.View.csproj" />
-    <ProjectReference Include="..\SDHC.Common.EntityCore\SDHC.Common.EntityCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="SDHC.Common">
-      <HintPath>..\SDHC.Common.EntityCore\libs\SDHC.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="SDHC.Core">
-      <HintPath>..\SDHC.Common.EntityCore\libs\SDHC.Core.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SDHC.Libs.NetCore\SDHC.Libs.NetCore.csproj" />
+    <ProjectReference Include="..\SDHC.Models.NetCore\SDHC.Models.NetCore.csproj" />
+    <ProjectReference Include="..\SDHC.View.NetCore\SDHC.View.NetCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SDHC.Common">
+      <HintPath>..\SDHC.Models.NetCore\libs\SDHC.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SDHC.Core">
+      <HintPath>..\SDHC.Models.NetCore\libs\SDHC.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
