@@ -52,8 +52,8 @@ namespace View.Areas.Admin.Controllers
     [HttpPost]
     public ActionResult Create(ContentPostModel model)
     {
-      var content = model.ConvertToBaseModel() as BaseContent;
-      ServiceContainer.ContentService.CreateContent(content, content.ParentId);
+      //var content = model.ConvertToBaseModel() as BaseContent;
+      //ServiceContainer.ContentService.CreateContent(content, content.ParentId);
       return RedirectToAction("Index");
     }
     [HttpGet]
