@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Core31.Models
 {
-  public class BaseContentModel: BaseContent
+  public class BaseContentModel : BaseContent
   {
+
   }
   public class BaseSelectModel : BaseSelect
   {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using SDHC.Common.Configs;
 using SDHC.Common.Cruds;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -53,7 +55,7 @@ namespace Microsoft.Extensions.DependencyInjection
       ServiceContainer.ModelService = new ModelService(crudInit);
       ServiceContainer.ContentService = new ContentService(crudInit);
       ServiceContainer.SelectService = new SelectService(crudInit);
-      //HostingEnvironment.MapPath("/"));
+      serviceCollection.TryAddScoped<ISDHCLanguageService, SDHCLanguageService>();
 
       ServiceContainer.SDHCFileService = new SDHCFileService(new SDHCFileConfig(
         basicRoot, ConfigContainer.Systems.FileUploadPath, new Dictionary<Type, SDHCSaveAble>()
@@ -89,18 +91,6 @@ namespace Microsoft.Extensions.DependencyInjection
               }
             }),
         }));
-
-      //SelectManager.BasicSelectType = typeof(TBaseSelect);
-
-
-      //ContentPostViewModel.GetContentPageUrl = () => G.ContentPageUrl;
-      //ContentPostViewModel.GetContentViewPath = () => G.ContentViewPath;
-
-      ContentPostViewModel.Convert = (input) => input.ConvertModelToPost();
-
-
-
-
     }
   }
 }

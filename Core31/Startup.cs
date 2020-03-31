@@ -10,7 +10,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using SDHC.Common.EntityCore.Services;
+using SDHC.Common.Services;
 
 namespace Core31
 {
@@ -27,6 +30,9 @@ namespace Core31
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddSession();
+      services.AddHttpContextAccessor();
+      services.AddScoped<ISDHCLanguageServiceInit, SDHCLanguageServiceInit>();
       services.AddDbContext<MyDBContext>(options =>
           options.UseSqlServer(
               Configuration.GetConnectionString("DefaultConnection")));
@@ -36,7 +42,6 @@ namespace Core31
                WebHostEnvironment.ContentRootPath);
       services.AddControllersWithViews();
       services.ConfigureOptions(typeof(V.EditorRCLConfigureOptions));
-
 
     }
 
@@ -55,7 +60,7 @@ namespace Core31
       app.UseHttpsRedirection();
 
       app.UseAuthentication();
-
+      app.UseSession();
       app.UseRouting();
       app.UseEndpoints(endpoints =>
       {
