@@ -30,6 +30,8 @@ namespace Microsoft.Extensions.DependencyInjection
       serviceCollection.ContainerInit<TRepo, TBaseContent, TBaseSelect>(optionsAction);
       serviceCollection.TryAddScoped<ISDHCLanguageService, SDHCLanguageService>();
       serviceCollection.FileServiceInit<TFileSngle>(basicRoot);
+
+
     }
   }
 }

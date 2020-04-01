@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SDHC.Common.Entity.Models;
 using SDHC.Common.Entity.Models.ViewModels;
 using SDHC.Common.EntityCore.Models;
+using SDHC.Models.NetCore.Attributes;
 
 namespace View.Areas.Admin.Controllers
 {
   [Area("Admin")]
   public class ContentController : Controller
   {
-    //[Admin(adminRole: "ContentIndex")]
+    [Admin(adminRole: "ContentIndex")]
     public IActionResult Index(long? id)
     {
       var content = ServiceContainer.ContentService.GetContent(id.HasValue && id.Value > 0 ? id : null);
@@ -52,6 +54,7 @@ namespace View.Areas.Admin.Controllers
       return View("Create", content);
     }
     [HttpPost]
+    [Authorize(Roles = "1")]
     //[Admin(adminRole: "ContentCreate")]
     public ActionResult Create(ContentPostModel model)
     {

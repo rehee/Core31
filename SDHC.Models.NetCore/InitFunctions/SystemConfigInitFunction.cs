@@ -13,6 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
     public static void SystemConfigInit([NotNullAttribute] this IServiceCollection serviceCollection, IConfiguration configuration, 
       string systemConfigKey)
     {
+      ConfigContainer.GetSetting = (key) => configuration.GetValue<string>(key);
       IConfigurationSection sec = configuration.GetSection(systemConfigKey);
       var type = typeof(SystemConfig);
       var obj = new SystemConfig();

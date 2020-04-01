@@ -7,6 +7,7 @@ using Core31.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using SDHC.Common.Configs;
 using SDHC.Common.EntityCore.Services;
 using SDHC.Common.Services;
+using SDHC.Models.NetCore.Models;
 
 namespace Core31
 {
@@ -31,7 +33,7 @@ namespace Core31
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
-      services.SUFunction<MyDBContext, BaseContentModel, BaseSelectModel>(Configuration, WebHostEnvironment);
+      services.SUFunction<MyDBContext, SDHCUser, BaseContentModel, BaseSelectModel>(Configuration, WebHostEnvironment);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +41,7 @@ namespace Core31
     {
       if (env.IsDevelopment())
       {
-        
+
       }
       app.UseDeveloperExceptionPage();
       SUContainer.Configure(app, env);

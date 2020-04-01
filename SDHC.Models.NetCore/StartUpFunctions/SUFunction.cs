@@ -1,13 +1,18 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SDHC.Common.Configs;
+using SDHC.Common.Entity.Models;
 using SDHC.Common.EntityCore.Models;
 using SDHC.Common.EntityCore.Services;
 using SDHC.Common.Services;
+using SDHC.Models.NetCore.Models;
+using SDHC.Models.NetCore.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,8 +21,9 @@ namespace SDHC.Common.EntityCore.Services
 {
   public static class SUContainer
   {
-    public static void SUFunction<TRepo, TBaseContent, TBaseSelect>(this IServiceCollection services,IConfiguration configuration, IWebHostEnvironment env)
+    public static void SUFunction<TRepo, TUser, TBaseContent, TBaseSelect>(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment env)
       where TRepo : DbContext, IContent
+      where TUser : SDHCUser
       where TBaseContent : BaseContent
       where TBaseSelect : BaseSelect
     {
@@ -30,23 +36,38 @@ namespace SDHC.Common.EntityCore.Services
         options.UseSqlServer(
               configuration.GetConnectionString("DefaultConnection"));
       };
+
       services.AddScoped<ISDHCLanguageServiceInit, SDHCLanguageServiceInit>();
       services.AddDbContext<TRepo>(dbAction);
+
+      services.AddIdentity<TUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+          .AddEntityFrameworkStores<TRepo>();
+
       services.InitSDHC<TRepo, TBaseContent, TBaseSelect, FormFile>(configuration, dbAction,
                env.ContentRootPath, systemConfigKey);
+      //services.AddIdentity<TUser, IdentityRole>()
+      //  .AddEntityFrameworkStores<TRepo>();
+      //services.AddScoped<RoleStore<IdentityRole>>();
+      //services.AddScoped<UserManager<TUser>>();
+      services.AddScoped<RoleManager<IdentityRole>>();
+
+      services.AddScoped<ISDHCUserManager<TUser>, SDHCUserManager<TUser>>();
 
       services.AddControllersWithViews();
+      services.AddRazorPages();
       services.ConfigureOptions(typeof(V.EditorRCLConfigureOptions));
     }
     public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
       app.UseStaticFiles();
-
       app.UseHttpsRedirection();
 
-      app.UseAuthentication();
       app.UseSession();
       app.UseRouting();
+
+      app.UseAuthentication();
+      app.UseAuthorization();
+
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllerRoute(
