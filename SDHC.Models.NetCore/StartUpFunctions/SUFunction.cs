@@ -23,7 +23,7 @@ namespace SDHC.Common.EntityCore.Services
   {
     public static void SUFunction<TRepo, TUser, TBaseContent, TBaseSelect>(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment env)
       where TRepo : DbContext, IContent
-      where TUser : SDHCUser
+      where TUser : SDHCUser, new()
       where TBaseContent : BaseContent
       where TBaseSelect : BaseSelect
     {
@@ -52,6 +52,9 @@ namespace SDHC.Common.EntityCore.Services
       services.AddScoped<RoleManager<IdentityRole>>();
 
       services.AddScoped<ISDHCUserManager<TUser>, SDHCUserManager<TUser>>();
+
+      services.AddSingleton<IEmailService, EmailService>(b => new EmailService(ConfigContainer.Systems));
+      services.AddSingleton<ISmsService, SmsService>();
 
       services.AddControllersWithViews();
       services.AddRazorPages();
