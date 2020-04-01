@@ -136,6 +136,12 @@ namespace Identity.Controllers
       return RedirectToAction("Index", "Home");
     }
 
+    [AllowAnonymous]
+    public IActionResult AccessDenied(string ReturnUrl)
+    {
+      return Content("You do not have permit to access this page.");
+    }
+
     //
     // POST: /Account/ExternalLogin
     [HttpPost]

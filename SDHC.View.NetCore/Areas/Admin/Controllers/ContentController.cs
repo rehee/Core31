@@ -14,7 +14,8 @@ namespace View.Areas.Admin.Controllers
   [Area("Admin")]
   public class ContentController : Controller
   {
-    [Admin(adminRole: "ContentIndex")]
+    //[Admin(adminRole: "ContentIndex")]
+    [Authorize]
     public IActionResult Index(long? id)
     {
       var content = ServiceContainer.ContentService.GetContent(id.HasValue && id.Value > 0 ? id : null);
