@@ -53,6 +53,7 @@ namespace SDHC.Common.EntityCore.Services
 
       services.AddScoped<ISDHCUserManager<TUser>, SDHCUserManager<TUser>>();
 
+
       services.AddSingleton<IEmailService, EmailService>(b => new EmailService(ConfigContainer.Systems));
       services.AddSingleton<ISmsService, SmsService>();
 
