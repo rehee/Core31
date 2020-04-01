@@ -41,7 +41,8 @@ namespace SDHC.Models.NetCore.Services
       return new TUser()
       {
         Email = email,
-        UserName = userName
+        UserName = userName,
+        EmailConfirmed = true
       };
     }
 
