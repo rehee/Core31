@@ -18,6 +18,7 @@ namespace Core31.Controllers
   {
     public HomeController(RoleManager<IdentityRole> manager)
     {
+
     }
     public IActionResult Index()
     {

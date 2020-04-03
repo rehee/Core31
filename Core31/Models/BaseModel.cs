@@ -10,10 +10,8 @@ namespace Core31.Models
   [AllowChildren(ChildrenType = new Type[] { typeof(BaseContentModel) })]
   public class BaseContentModel : BaseContent
   {
-    [NotMapped]
     [InputType(EditorType = EnumInputType.FileUpload)]
     public string FF { get; set; }
-    [NotMapped]
     [InputType(EditorType = EnumInputType.Text)]
     public string FF2 { get; set; }
   }

@@ -4,14 +4,16 @@ using Core31.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Core31.Migrations
 {
     [DbContext(typeof(MyDBContext))]
-    partial class MyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200402195417_init4")]
+    partial class init4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -293,9 +295,6 @@ namespace Core31.Migrations
             modelBuilder.Entity("Core31.Models.BaseContentModel", b =>
                 {
                     b.HasBaseType("SDHC.Common.EntityCore.Models.BaseContent");
-
-                    b.Property<string>("FF")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FF2")
                         .HasColumnType("nvarchar(max)");

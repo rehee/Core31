@@ -60,6 +60,8 @@ namespace SDHC.Common.EntityCore.Services
       services.AddControllersWithViews();
       services.AddRazorPages();
       services.ConfigureOptions(typeof(V.EditorRCLConfigureOptions));
+      services.AddSingleton<ISecretService, SecretService>(s => new SecretService(ConfigContainer.Systems));
+      ServiceContainer.SecretService = new SecretService(ConfigContainer.Systems);
     }
     public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
@@ -74,6 +76,9 @@ namespace SDHC.Common.EntityCore.Services
 
       app.UseEndpoints(endpoints =>
       {
+        endpoints.MapControllerRoute(
+        name: "Files",
+        pattern: $"{ConfigContainer.Systems.FileUploadPath}/{{*path}}", defaults: new { controller = "Files", action = "Index", });
         endpoints.MapControllerRoute(
         name: "area",
         pattern: "{area:exists}/{controller=Default}/{action=Index}/{id?}");
