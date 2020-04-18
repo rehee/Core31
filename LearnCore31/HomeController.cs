@@ -16,7 +16,7 @@ namespace LearnCore31
     }
     public async Task<IActionResult> Index()
     {
-      return Content("");
+      return Content("this is test");
     }
   }
 }
